@@ -1,0 +1,16 @@
+El uso de memoria resulta mucho mas significativo que en las soluciones anteriores del 
+jardín ordamental ya que requiere de un array de tickets y un array para chequear que 
+cada thread está o no sacando tickets, cada uno de largo N_THREADS.
+El uso de memoria de Lamport es de O(n), lo cual es bastante grande comparado con otras soluciones como 
+el uso de compare-and-swap (O(1)). Además, esto tiene el prolema de que las variables de chequeo deben 
+ser accesibles por todos los threads simultánemanete, por lo que deben ser variables compartidas. (globales o heap)
+
+Cada vez que un thread quiera modificar la sercción crítica, este 
+requiere de un identificador para poder comunicarle a los demas threads lo que quiere hacer y además
+necesita saber la cantidad total de threads que podrían querer acceder a la sección critca, por lo que 
+es mucho menos simple. Vale le pena mecionar que este algoritmo no es 100% funcional pues tiene el 
+mismo problema que el jardín ordamental ordinario, las operaciones no son atómicas.
+
+No tendría sentido crear una librería con la implementación del algoritmo pues habría que usar memoria 
+compartida y al ser un algoritmo que consume tanta memoria, se volvería aún mas ineficiente. Existen 
+otras soluciones mejores.

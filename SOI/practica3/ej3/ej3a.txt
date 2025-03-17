@@ -1,0 +1,10 @@
+Este programa puede terminar en deadlock si todos los threads logran tomar 
+el tenedor que tienen a sus derechas (la primera accion que realizan). Entonces,
+todos los threads que necesitaban 2 locks, van a tener 1 en posesion (que el 
+comensal de la derecha necesitaba) y se van a quedar esperando que alguien 
+(el comensalde la izquierda) libere el otro tenedor/lock. Como todos tienen 1 
+lock en posesion y todos estan esperando un lock que no va a llegar, se produce
+un deadlock.
+
+a) Si todos los comensales toman el tenedor de la derecha y no consiguen tomar el tenedor de la
+izquierda, entonces se produce un deadlock.

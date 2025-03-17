@@ -1,0 +1,12 @@
+
+2) La memoria RAM es de 4 KB.
+3) Aumentar el numero de paginas o el tamanio de las mismas.
+4) 132 KB?
+5) 63?
+6) Todos los archivos de userlang tienen un main implementado, el archivo main del directorio threads, 
+El ejecutable es el main dentro del directorio threads?
+7) El main llama a initialize que esta en en archivo ./threads/system.cc e initialize llama a ASSERT que esta en ./lib/assert.cc
+
+
+
+

@@ -1,0 +1,5 @@
+Se pueden relacionar ambos ejercicios si vemos al agente proovedor de ingredientes como el servidor 
+y a los fumadores como los clientes.
+fumadores <-> clientes
+agente <-> servidor
+en donde los clientes (fumadores) esperan a que el servidor (agente) haga algo.

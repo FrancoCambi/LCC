@@ -1,0 +1,4 @@
+No, no pueden ordenarse los recursos para solucionar el problema ya que no importa como se ordenen 
+los sem_wait, siempre va a existir al menos un caso en el que al el agente realizar un sem_post, va a 
+haber 2 fumadores con el sem_wait de ese ingrediente en simultaneo y nunca se puede asegurar que el 
+fumador esperado sea quien reciba primero la señal.

@@ -1,0 +1,35 @@
+Ejercicio 2)
+
+
+a - No comparten los valores de registros ya que por ejemplo, cada thread debe
+poder acceder a su propio PC (Program Counter).
+b - Los threads comparten el heap para poder compartir informaciòn
+facilmente entre ellos.
+c - Comparten las variables globales al compartir el Data Segment para tambien
+trabajar juntos sobre esos datos.
+d - No comparten el stack ya que por ejemplo, se pisarian sus Return Pointers al llamar
+a funciones cada thread por separado.
+
+Ejercicio 9)
+
+USANDO 1000000 DE VISITANTES:
+
+a) sin sincronizacion
+    real	0m0,003s
+b) usando el algoritmo de Peterson
+    real	0m0,060s
+c) usando incl
+    real	0m0,019s (FUNCIONA)
+d) usando un pthread mutex t
+    real	0m0,042s (FUNCIONA)
+e) usando un solo molinete sin multithreading.
+    real	0m0,003s
+
+    Tanto el algoritmo sin sincronizacion como el algoritmo sub multithreading son muy rápidos ya que no
+comprueban que la variable "visitantes" se esté utilizando, por lo que a costa de su rapidez fallan 
+practicamente el 100% de las veces.
+    El algoritmo de Peterson es el mas lento de todos, y si no fuera por las optimizaciones que hace el 
+procesador para mejorar el rendimiento, funcionaría correctamente para dos procesos. Es el más lento porque
+si bien el método que utiliza es efectivo (while infinito, lock/unlock artificial), es muy costoso/lento.
+    Por ultimo, usando pthread_mutex o incl el programa funciona correctamente, pero el incl es mas veloz 
+porque usa directamente instrucciones de assembler (lo más efectivo). 

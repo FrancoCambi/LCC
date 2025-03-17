@@ -1,0 +1,57 @@
+La idea es la siguiente:
+
+El barbero es un thread.
+Cada cliente es un thread.
+
+---
+
+El barbero se encuentra en un bucle infinito. 
+(toma mutex)
+Si no hay nadie (lo sabe por la cantidad de sillas libres), (libera mutex y)
+    se duerme y se queda esperando que alguien lo despierte. (barberoDormido)
+    Eventialmente lo despierten.
+Si hay alguien (libera mutex y), espera a que el cliente le de el OK de empezar (clientesListos).
+    Este cliente estaba en una silla y (seguramente) ya le habia dicho de antemano que estaba listo.
+
+La idea es que siempre esta esperando a alguien para atender (dormido o despierto).
+
+Entonces comienza una serie de verificaciones entre threads. 
+
+Le devuelve el OK al cliente para comenzar a cortar. (puedoAtender)
+    Entonces el proceso de corte comienza y termina. (cortando y me_cortan)
+Luego, el barbero espera a que el cliente le diga que el corte ya finalizó. (finCorteDePelo)
+Ahora le dice al cliente que comienzan con el proceso de pago. (comienzoPago)
+    Entonces el proceso de pago comienza y termina. (me_pagan y pagando)
+Y luego, el barbero espera que el cliente le diga que ya está (finSesionCompletada)y termino TODO.
+
+Descansa unos segundo y repite el ciclo.
+
+---
+
+El cliente llega a la tienda (toma el mutex) y verifica si la sala esta llena. 
+Si lo esta (libera mutex y), se va.
+Si no, entonces: si esta vacia y el barbero esta dormido lo despierta (barberoDormido) (libera mutex) 
+    y espera a que el barbero le diga que lo puede atender (puedoAtender)
+Si nada de eso ocurre, o el barbero esta despierto o la sala no esta vacia, entonces se sienta (cantidadSillasDisponibles) y 
+    (libera mutex y) le dice al barbero que esta listo para ser atendido  (clientesListos) y espera que el barbero 
+    le de el OK. (puedoAtender). Apenas le de el Ok, se para y libera su silla (cantidadSillasDisponibles)
+
+Entonces comienzan los intercambios analogos a los del barbero.
+
+    El proceso de corte comienza y termina. (cortando y me_cortan)
+Le dice al barbero que el corte ya termino. (finCorteDePelo)
+Espera a que el barbero le diga que comience a pagar (comienzoPago)
+    Entonces el proceso de pago comienza y termina. (me_pagan y pagando)
+Le dice al barbero que ya termino de pagar. (finSesionCompletada)
+Se va.
+
+---
+
+Funciona en general con la utilizacion de semaforos en donde entre cada thread 
+se van intercambiando mensajes para coordinar sus acciones y que realicen las mismas 
+concurrentemente. Ademas hay otros semaforos que indican las sillas libres del local y 
+los clientes en espera de ser atendidos (su contraparte); que se utilizan para controlar 
+el limite de clientes del local y que se respete el orden en el que pidieron ser atendidos 
+(que es pracicamente equivalente al orden en que llegaron).
+
+Cada variable y su uso esta explicada en el codigo.

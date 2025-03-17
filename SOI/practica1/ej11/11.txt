@@ -1,0 +1,9 @@
+b_ El servidor necesita tener en cuenta que no se esten procesando dos pedidos al mismo tiempo.
+No debe ejecutarse el "sprintf(reply, "%d\n", *shmem);" de un cliente si aun no se ejecuto el (*shmem)++;
+del otro cliente. Necesitamos que entre esas dos acciones exista una atomicidad.
+
+Otra forma es esperar que cada cliente finalice su pedido para luego procesar el siguiente,
+
+c_ Select trae la ventaja de que te permite monitorear multples file descriptors (clientes) asi se puede
+implementar un sistema de mutex, para que cuando uno este realizando un pedido los demas se bloqueen 
+temporalmente hasta que finalicen su pedido

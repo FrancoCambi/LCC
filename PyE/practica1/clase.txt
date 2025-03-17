@@ -1,0 +1,32 @@
+4)
+a) unilateral a derecha
+b) [2, max) | P(x >= 2 / H_0, mu = 0)
+c) (min, -1] | P(x >= -1 / H_0, mu = 0)
+d) Mayor a 0.5 ya que el area abarca mas de la mitad del total
+e) Valor critico: 2,6
+   Region de no rechazo: (min, 2.6] (Se marca sobre el eje x, sobre h0)
+   Region de rechazo: [2.6, max) (idem)
+   Alfa = P(e_1) = [2.6, max), bajo h0
+   Beta = P(e_2) = (min, 2.6], bajo h1
+   Potencia = 1 - Beta, i.e. El resto de curva bajo h1, sin contar beta
+   3 >= 2.6, asi que si es estadisticamente significativo.
+
+10) 
+a) h0 es que la caja sea la a
+   h1 es que la caja sea la b
+b) unilateral por izquierda
+c) Regla: Se rechaza h0 si el valor sacado es menor o igual a 5.
+d) alfa = 0,10 | P(e_1) = 0,08 = 8%
+   P(e_2) = 11/25 = 0,44 = 44%
+e) Rechazar h0 es la decision.
+   Conclusion: En base a la evidencia muestral, y con un nivel de significacion del 8%, se concluye que la caja es la B.
+   PValue = 2/25, P(x <= 5, caja h0)
+
+6)
+
+a) alfa = 2/30 = 0,067
+b) PValue = 12/30 = 0,4 (x <= 3 o x >= 8)
+c) BetaB = 23/30
+   BetaC = 23/30, 0,77
+
+NOTA: Alfa y Beta son cotas del error.

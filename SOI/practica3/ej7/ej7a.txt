@@ -1,0 +1,12 @@
+Puede ocurrir un deadlock si:
+Un fumador agarra como primer ingrediente de su lista (el primer sem_wait) el ingrediente 1 que otorgo 
+el agente y otro fumador agarra como primer ingrediente de su lista el ingrediente 2 que otorgo el agente. 
+En este caso, ambos fumadores se van a quedar esperando que el agente les libere el segundo ingrediente pero 
+el agente al ya haber liberado los dos, tampoco va a continuar hasta que algun fumador (el que el esperaba)
+haya fumado.
+Ocurren todos los requisitos para que se produzca un deadlock:
+
+- Condicion de exclusion mutua: Solo 1 fumador puede fumar a la vez.
+- Condicion de retencion y espera: Quien toma un lock no lo suelta hasta que obtenga el otro
+- Condicion de no expropiacion: Los recursos solo los puede liberar quien los pidio
+- Condicion de espera circular: El FumA tiene el RecA, y necesita un RecB que tiene FumB, que a su vez espera el RecA

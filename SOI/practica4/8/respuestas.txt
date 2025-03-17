@@ -1,0 +1,28 @@
+Ambos servidores, tanto el de Erlang como el manejado por threads puedo manejar 
+las conexiones de 200, 2.000, 20.000 y hasta 50.000. Si bien en erlang no hubo 
+inconvenientes, en C es un poco más tedioso pero es posible.
+Resepecto a la memoria consumida, en el caso de Erlang, consumie 50Mb al iniciar 
+el server sin conexiones, y luego aumenta hasta 500Mb con 50.000 conexiones, para luego
+al terminar bajar nuevamente hasta 130Mb.
+Por otro lado, el servidor en C únicamente consume 170Kb al iniciar y llega a un tope de 475 Mb
+
+Hay una evidente diferencia de consumo respecto a ambos métodos al iniciar el servidor.
+Esto se debe a:
+La diferencia de arquitectura de ambos métodos: Erlang utiliza un modelo de concurrencia
+basado en actores, donde cada uno tiene su propio heap y stack, cada uno con un overhead 
+asociado. Por otro lado los threads comparten la memoria del proceso principal.
+El runtime y la recolección de basura: Erlang es más complejo y tiene estructuras internas
+y mecanismos de gestion de memoria que usan memoria aún cuando no hay operaciones; mientras 
+que los threads dependen del sistema operativo, no generan una "máquina virtual" nueva, 
+por lo que no tienen un runtime de concurrencia equivalente.
+Estructuras: Erlang tiene tablas como las ETS (Erlang Term Storage) que ocupan lugar aún cuando
+los procesos estan inactivos.
+Erlang tiene mecanismos de supervision que estan en activo en todo momento, mientras que en 
+C con los threads, al menos que se implementen, no existen.
+En general, los procesos en C estan diseñados para ser mucho menos costosos a costa de una 
+abstracción menor, mientras que Erlang esta diseñado estrictamente para manejar este tipo 
+de servidores sin fallas.
+
+Debido a esto, con los procesos en activo el consumo de memoria se equipara enormemente
+pues Erlang esta capacitado para administrar mejor el consumo de la memoria mientras que 
+en C, no ya que no esta optimizado para manejar tantas conexiones en simultaneo.
