@@ -30,3 +30,28 @@ c) BetaB = 23/30
    BetaC = 23/30, 0,77
 
 NOTA: Alfa y Beta son cotas del error.
+
+9) b, (o mas chico)
+
+11) 
+a) Unilateral hacia izquierda
+b) P(e_1) = 3/15
+   P(e_2) = 6/15
+
+c) p_value = 10/15
+
+d) 10/15 > 3/15 => no son est. sig.
+
+14) 
+a) 0,01
+   0,06
+   0,05
+
+b) der
+   izq
+   unilateral
+
+c) el estudio B
+
+d) Error tipo 1
+
