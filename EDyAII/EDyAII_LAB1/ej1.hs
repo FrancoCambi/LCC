@@ -30,7 +30,8 @@ list123 = 1 : 2 : 3 : []
 (x:xs) ++! ys = x : xs ++! ys
 
 -- f)
-addToTail x xs = map : x tail xs
+addToTail :: a -> [a] -> [a]
+addToTail x xs = xs ++ x : []
 
 -- g)
 listmin :: Ord a => [a] -> a

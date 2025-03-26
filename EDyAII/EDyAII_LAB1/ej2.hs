@@ -77,5 +77,3 @@ max3 a b c = if a >= b then if
 --k)
 swap :: (a, b) -> (b, a)
 swap (a,b) = (b,a)
-
-main = do print (five 5)
