@@ -15,16 +15,22 @@
 /// limitation of liability and disclaimer of warranty provisions.
 
 
-#include "lock.hh"
+#include "lock.hh"  
+
+#include<stdio.h>
 
 
 /// Dummy functions -- so we can compile our later assignments.
 
 Lock::Lock(const char *debugName)
-{}
+{
+    lock = new Semaphore(debugName, 1);
+}
 
 Lock::~Lock()
-{}
+{
+    delete lock;
+}
 
 const char *
 Lock::GetName() const
@@ -35,18 +41,29 @@ Lock::GetName() const
 void
 Lock::Acquire()
 {
-    // TODO
+    if (!IsHeldByCurrentThread()) 
+    {
+        lock->P();
+        currentPid = getpid();
+        DEBUG('t', "Lock acquired by %d\n", currentPid);
+
+    }
 }
 
 void
 Lock::Release()
 {
-    // TODO
+    if (IsHeldByCurrentThread()) 
+    {
+
+        lock->V();
+        currentPid = -1;
+
+    }
 }
 
 bool
 Lock::IsHeldByCurrentThread() const
 {
-    // TODO
-    return false;
+    return currentPid == getpid();
 }

@@ -17,6 +17,9 @@
 #ifndef NACHOS_THREADS_LOCK__HH
 #define NACHOS_THREADS_LOCK__HH
 
+#include "semaphore.hh"
+#include "unistd.h"
+
 
 /// This class defines a “lock”.
 ///
@@ -58,6 +61,9 @@ private:
     const char *name;
 
     // Add other needed fields here.
+    Semaphore *lock;
+
+    pid_t currentPid = -1;
 };
 
 

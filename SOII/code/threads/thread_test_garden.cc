@@ -15,22 +15,42 @@ static const unsigned NUM_TURNSTILES = 2;
 static const unsigned ITERATIONS_PER_TURNSTILE = 50;
 static bool done[NUM_TURNSTILES];
 static int count;
+Lock *lock = new Lock("testing");
 
 static void
 Turnstile(void *n_)
 {
     unsigned *n = (unsigned *) n_;
-
+    
     for (unsigned i = 0; i < ITERATIONS_PER_TURNSTILE; i++) {
+        // Acquire the lock before accessing shared count
+        lock->Acquire();
+        
         int temp = count;
         printf("Turnstile %u yielding with temp=%u.\n", *n, temp);
+        
+        // Release the lock before yielding
+        lock->Release();
+        
         currentThread->Yield();
+        
+        // Reacquire lock before modifying shared count
+        lock->Acquire();
+        
         printf("Turnstile %u back with temp=%u.\n", *n, temp);
         count = temp + 1;
+        
+        // Release lock after modifying count
+        lock->Release();
+        
         currentThread->Yield();
     }
-    printf("Turnstile %u finished. Count is now %u.\n", *n, count);
+    
+    // Acquire lock to safely mark thread as done
+    lock->Acquire();
+    printf("Turnstile %u finished. Count is now: %u.\n", *n, count);
     done[*n] = true;
+    lock->Release();
 }
 
 void
@@ -60,7 +80,7 @@ ThreadTestGarden()
         }
     }
 
-    printf("All turnstiles finished. Final count is %u (should be %u).\n",
+    printf("All turnstiles finished. Final count is: %u (should be %u).\n",
            count, ITERATIONS_PER_TURNSTILE * NUM_TURNSTILES);
 
     // Free all the memory
@@ -69,4 +89,5 @@ ThreadTestGarden()
     }
     delete []values;
     delete []names;
+    delete lock;
 }

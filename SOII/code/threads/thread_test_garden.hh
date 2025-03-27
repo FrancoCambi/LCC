@@ -8,6 +8,10 @@
 #define NACHOS_THREADS_THREADTESTGARDEN__HH
 
 
+#include "lock.hh"
+
+
+
 void ThreadTestGarden();
 
 
