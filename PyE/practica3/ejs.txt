@@ -1,0 +1,65 @@
+1)
+
+c) S = {(V), (M, V), (M, M, V), (M, M, M)}
+
+   P(V) = 0.5
+   P(M, V) = 0.25
+   P(M,M,V) = 0.125
+   P(M,M,M) = 0.125
+
+   P_varon = 0.875
+
+3) 
+
+
+4)
+
+d) S = {(o,i), (e, i), (c, i), (b, i); i in (1,12)}
+   #S = 48 = 12 * 4
+
+f) S = {(c,c), (c, x), (x, x), (x, c)}
+   #S = 4
+
+i) S = N. Naturales 
+   #S = (inf numerable. i.e. aleph 0)
+
+k) S = N Naturales_0
+   #S = aleph 0
+
+l) S = {t / t > 0}
+   #S = aleph 1
+
+5)
+
+a) A u B u C
+b) (A u B u C)c
+c) A int B int C
+d) (A int B int Cc) u (A int C int Bc) u (B int C int Ac)
+e) (A int B) u (A int C) u (B int C)
+
+6) 8
+
+a) A = {(M, M, M), (M, V M), (V, V, M), (V, M, M)}
+   #A = 4]
+
+b) analogo  a
+
+c) Todos - (M, M, V) y (M, V, V), #C = 6
+
+7) 
+
+a) {(x,y); x,y e (1..6)} #S = 36
+b) 
+
+   A) {(x,y); x,y e (1..6) ^ x es par} #A = 18
+   B) {(x,y); x,y e (1..6) ^ y es impar} #B = 18
+   C) {(x,y); x,y e (1..6) ^ (x es par ^ y es par) o (x es impar o y es impar)}
+   #C = 18
+
+28)
+
+a) 0.54
+b) 0.74 
+
+
+
