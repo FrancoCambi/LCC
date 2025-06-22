@@ -1,0 +1,12 @@
+class Sec s where
+	empty :: s a 
+	map
+	reduce
+	filter
+	scan
+
+instance Seq [] where
+	empty :: [a]
+
+- Paralelizar la implementacion de map
+
