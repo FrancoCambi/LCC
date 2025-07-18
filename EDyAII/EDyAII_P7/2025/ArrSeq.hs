@@ -1,6 +1,6 @@
 module ArrSeq (Arr, emptyArr, singletonArr, lengthArr, nthArr, tabulateArr, mapArr, 
 filterArr, appendArr, takeArr, dropArr, showtArr, showlArr, 
-joinArr, reduceArr, scanArr, scanMalo, fromListArr) where
+joinArr, reduceArr, scanBueno, fromListArr) where
 
 import Seq
 import Par
@@ -27,7 +27,7 @@ instance Seq Arr where
   showlS     = showlArr
   joinS      = joinArr
   reduceS    = reduceArr
-  scanS      = scanMalo
+  scanS      = scanBueno
   fromList   = fromListArr
 
 
@@ -66,7 +66,7 @@ showtArr arr | (lengthArr arr) == 0 = EMPTY
              | (lengthArr arr) == 1 = ELT (arr ! 0)
              | otherwise = NODE (takeArr arr p) (dropArr arr p)
         where 
-            p = if (even (lengthArr arr)) then (div (lengthArr arr) 2) else (div (lengthArr arr) 2) - 1
+            p = if (even (lengthArr arr)) then (div (lengthArr arr) 2) else (div (lengthArr arr - 1) 2)
 
 showlArr :: Arr a -> ListView a (Arr a)
 showlArr = undefined
@@ -94,19 +94,22 @@ reduceArr f b arr | (lengthArr arr) == 0 = b
                 reduceT f (Node l r) = let (l', r') = (reduceT f l) ||| (reduceT f r)
                                        in (f l' r')
 
+toList :: Seq s => s a -> [a]
+toList s = map (nthS s) [0 .. lengthS s - 1]
 
-scanArr :: (a -> a -> a) -> a -> Arr a -> (Arr a, a)
-scanArr f e arr = let (s', t) = (scanMalo f e (contraccion f arr)) in (expansion f e arr s', (reduceArr f e arr))
-        where
-            contraccion :: (a -> a -> a) -> Arr a -> Arr a
-            contraccion f arr | (even (lengthArr arr)) = (fromListArr [(f (arr ! i) (arr ! (i + 1))) | i <- [0..(div (lengthArr arr) 2)], (even i)])
-                              | otherwise = arr
+scanBueno :: (a -> b -> a) -> a -> Arr b -> (Arr a, a)
+scanBueno f b arr =
+  let n = lengthArr arr
+      go i acc
+        | i == n    = []
+        | otherwise = 
+            let xi = nthArr arr i
+                acc' = f acc xi
+            in acc : go (i+1) acc'
+      accList = go 0 b
+      final = foldl f b (toList arr)
+  in (fromList accList, final)
 
-            expansion :: (a -> a -> a) -> a -> Arr a -> Arr a -> Arr a
-            expansion f e s s' = fromListArr ([if (even i) then (s' ! (div i 2)) else (f (s' ! (div (i - 1) 2)) (s ! (i - 1))) | i <- [0..(lengthArr s) - 1]])
-
-scanMalo :: (a -> a -> a) -> a -> Arr a -> (Arr a, a)
-scanMalo f b s = (tabulateArr (\ i -> reduceArr f b (takeArr s i)) ((lengthArr s)), reduceArr f b s)
 
 fromListArr :: [a] -> Arr a
 fromListArr = A.fromList
